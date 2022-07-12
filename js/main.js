@@ -17,7 +17,7 @@ const getVoices = ()=> {
          const option = document.createElement('option');
          option.textContent=voice.name + '(' + voice.lang + ')';
          option.setAttribute('data-lang',voice.lang);
-         option.setAttribute('data-lang',voice.name);
+         option.setAttribute('data-name',voice.name);
          voiceSelect.appendChild(option);
      });
 };
@@ -42,10 +42,13 @@ const speak = () => {
         speakText.onend = e => {
             body.style.background="#141414";
             console.log("done speaking");
-            textInput.value='';
+            //textInput.value='';
         }
 
-    const selectedVoice = voiceSelect.selectedOptions[0].getAttribute('data-name');
+        const selectedVoice = voiceSelect.selectedOptions[0].getAttribute(
+            'data-name'
+          );
+    console.log(selectedVoice);
 
     voices.forEach(voice => {
         if(voice.name=== selectedVoice){
@@ -55,6 +58,7 @@ const speak = () => {
 
     speakText.rate= rate.value;
     speakText.pitch= pitch.value;
+   // synth.cancel();
     synth.speak(speakText);
 
     }
